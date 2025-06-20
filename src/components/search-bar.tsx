@@ -7,8 +7,8 @@ import Fab from '@mui/material/Fab';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { CityLocation, getLocation } from "../api/location";
-import { CityWeather, getWeather } from "../api/weather";
+import { CityLocation, getLocation } from "../services/location-service";
+import { CityWeather, getWeather } from "../services/weather-service";
 import { kelvinToCelsius } from "../utils/kelvinToCelcius";
 import "./search-bar.css";
 
