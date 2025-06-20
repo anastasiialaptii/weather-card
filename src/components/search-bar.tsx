@@ -1,9 +1,9 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Fab } from "@mui/material";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
+import Fab from '@mui/material/Fab';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { CityLocation, getLocation } from "../api/location";
 import { CityWeather, getWeather } from "../api/weather";
 import { kelvinToCelsius } from "../utils/kelvinToCelcius";
 import "./search-bar.css";
+
 interface SearchBarProps {
   placeHolder: string;
 }
