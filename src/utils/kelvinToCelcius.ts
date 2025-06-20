@@ -1,3 +1,3 @@
 export function kelvinToCelsius(k: number): number {
-    return +(k - 273.15).toFixed(2);
+  return +(k - 273.15).toFixed(2);
 }
