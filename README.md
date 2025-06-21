@@ -14,8 +14,7 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ### API keys
-Don't forget to your API keys!
-https://openweathermap.org/
-https://rapidapi.com/hub
+Don't forget to your API keys!\
+You may use https://openweathermap.org/ for fetching weather data and https://rapidapi.com/hub for locating a land.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
