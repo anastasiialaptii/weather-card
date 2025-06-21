@@ -12,6 +12,7 @@ export interface CityWeather {
   feels_like: number;
   temp: number;
   humidity: number;
+  city: string;
 }
 
 export async function getWeather(
@@ -27,7 +28,7 @@ export async function getWeather(
 
     if (!response.ok) throw new Error("Error");
 
-    const { weather, main } = await response.json();
+    const { weather, main, name } = await response.json();
 
     const cityWeather: CityWeather = {
       id: weather[0].id,
@@ -36,6 +37,7 @@ export async function getWeather(
       temp: main.temp,
       humidity: main.humidity,
       feels_like: main.feels_like,
+      city: name
     };
 
     return cityWeather;

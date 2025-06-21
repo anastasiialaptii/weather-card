@@ -22,13 +22,15 @@ function SearchBar({ placeHolder }: SearchBarProps) {
   const [cityWeather, setCityWeather] = useState<CityWeather>();
   const [myWeatherList, setMyWeatherList] = useState<CityWeather[]>([]);
 
-  const handleAddToMyObservation = (item: CityWeather) => {
-    myWeatherList.push(item);
-
-    setMyWeatherList(myWeatherList);
+  const addToMyObservation = (observable: CityWeather) => {
+    setMyWeatherList(weatherList=> {
+      if (weatherList.find(item => item.id === observable.id)) return weatherList;
+      
+      return [...weatherList, observable];
+    });
   }
 
-  const handleSearch = async () => {
+  const searchForWeather = async () => {
     setCityWeather(undefined);
 
     if (!searchTerm) return;
@@ -38,7 +40,7 @@ function SearchBar({ placeHolder }: SearchBarProps) {
     setSearchResults(data);
   };
 
-  const handleSelect = async (item: CityLocation) => {
+  const selectCity = async (item: CityLocation) => {
     const data = await getWeather({ lat: item.latitude, lon: item.longitude });
 
     setCityWeather(data);
@@ -53,7 +55,7 @@ function SearchBar({ placeHolder }: SearchBarProps) {
           placeholder={placeHolder}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={handleSearch}>
+        <Button variant="contained" color="primary" onClick={searchForWeather}>
           Search
         </Button>
       </div>
@@ -63,7 +65,7 @@ function SearchBar({ placeHolder }: SearchBarProps) {
           <Chip
             key={index}
             label={item.name}
-            onClick={() => handleSelect(item)}
+            onClick={() => selectCity(item)}
             clickable
             color="primary"
             style={{ marginRight: 8, marginBottom: 8 }}
@@ -74,13 +76,22 @@ function SearchBar({ placeHolder }: SearchBarProps) {
       {cityWeather ? (
         <Card variant="outlined" style={{ marginBottom: 16 }}>
           <CardContent>
+            <Typography variant="body1">
+              {cityWeather.city}
+            </Typography>
             <Typography color="textSecondary">
-              {cityWeather.description}
+              {cityWeather.main} / {cityWeather.description}
+            </Typography>
+            <Typography color="textSecondary">
+              Humidity: {cityWeather.humidity} %
             </Typography>
             <Typography variant="body1">
               {kelvinToCelsius(cityWeather.temp)} °C
             </Typography>
-            <Fab size="medium" color="secondary" aria-label="add" onClick={() => handleAddToMyObservation(cityWeather)}>
+            <Typography variant="body1">
+              Feels like {kelvinToCelsius(cityWeather.feels_like)} °C
+            </Typography>
+            <Fab size="medium" color="secondary" aria-label="add" onClick={() => addToMyObservation(cityWeather)}>
             <AddIcon />
             </Fab>
           </CardContent>
@@ -97,14 +108,26 @@ function SearchBar({ placeHolder }: SearchBarProps) {
 
       <div className="myWeatherCardsList">
         <div style={{ marginBottom: 16 }}>
-        {myWeatherList.map((item, index) => (
+        <Typography color="textSecondary" style={{ fontWeight: 'bold' }}>
+            My observatory:
+        </Typography>        
+        {myWeatherList.map((cityWeather, index) => (
         <Card variant="outlined" style={{ marginBottom: 16 }}>
           <CardContent>
+            <Typography variant="body1">
+              {cityWeather.city}
+            </Typography>
             <Typography color="textSecondary">
-              {item.description}
+              {cityWeather.main} / {cityWeather.description}
+            </Typography>
+            <Typography color="textSecondary">
+              Humidity: {cityWeather.humidity} %
             </Typography>
             <Typography variant="body1">
-              {kelvinToCelsius(item.temp)} °C
+              {kelvinToCelsius(cityWeather.temp)} °C
+            </Typography>
+            <Typography variant="body1">
+              Feels like {kelvinToCelsius(cityWeather.feels_like)} °C
             </Typography>
           </CardContent>
           </Card>
