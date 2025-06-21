@@ -1,6 +1,5 @@
 # Weather Observation App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![image](https://github.com/user-attachments/assets/1c6d4393-be85-4c5d-87c0-8336e8002877)
 
 ## Available Scripts
 
@@ -13,3 +12,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+Don't forget to your API keys!
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
