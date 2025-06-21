@@ -3,8 +3,7 @@ export async function getWeather(
   lon: number,
   apiKey?: string,
 ): Promise<Response> {
-
- return await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`,
-    );
+  return await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`,
+  );
 }

@@ -1,6 +1,6 @@
 import { getLocation as locationApi } from "../api/location";
 
-export interface CityLocation {
+export type CityLocation = {
   id: number;
   wikiDataId: string;
   type: string;
@@ -11,7 +11,7 @@ export interface CityLocation {
   regionCode?: number;
   latitude: number;
   longitude: number;
-}
+};
 
 export async function getLocation(
   searchTerm: string,

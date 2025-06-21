@@ -1,20 +1,19 @@
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
-import Fab from '@mui/material/Fab';
+import Fab from "@mui/material/Fab";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { CityLocation, getLocation } from "../services/location-service";
 import { CityWeather, getWeather } from "../services/weather-service";
-import { kelvinToCelsius } from "../utils/kelvinToCelcius";
 import "./search-bar.css";
+import { WeatherCard } from "./weather-card";
 
-interface SearchBarProps {
+type SearchBarProps = {
   placeHolder: string;
-}
+};
 
 function SearchBar({ placeHolder }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,12 +22,19 @@ function SearchBar({ placeHolder }: SearchBarProps) {
   const [myWeatherList, setMyWeatherList] = useState<CityWeather[]>([]);
 
   const addToMyObservation = (observable: CityWeather) => {
-    setMyWeatherList(weatherList=> {
-      if (weatherList.find(item => item.id === observable.id)) return weatherList;
-      
+    setMyWeatherList((weatherList) => {
+      console.log("Current list:", weatherList);
+      console.log("Trying to add:", observable);
+
+      if (weatherList.find((item) => item.id === observable.id)) {
+        console.log("Duplicate found, not adding.");
+        return weatherList;
+      }
+
+      console.log("Adding new item.");
       return [...weatherList, observable];
     });
-  }
+  };
 
   const searchForWeather = async () => {
     setCityWeather(undefined);
@@ -61,9 +67,9 @@ function SearchBar({ placeHolder }: SearchBarProps) {
       </div>
 
       <div style={{ marginBottom: 16 }}>
-        {searchResults.map((item, index) => (
+        {searchResults.map((item, _) => (
           <Chip
-            key={index}
+            key={item.id}
             label={item.name}
             onClick={() => selectCity(item)}
             clickable
@@ -75,26 +81,15 @@ function SearchBar({ placeHolder }: SearchBarProps) {
 
       {cityWeather ? (
         <Card variant="outlined" style={{ marginBottom: 16 }}>
-          <CardContent>
-            <Typography variant="body1">
-              {cityWeather.city}
-            </Typography>
-            <Typography color="textSecondary">
-              {cityWeather.main} / {cityWeather.description}
-            </Typography>
-            <Typography color="textSecondary">
-              Humidity: {cityWeather.humidity} %
-            </Typography>
-            <Typography variant="body1">
-              {kelvinToCelsius(cityWeather.temp)} °C
-            </Typography>
-            <Typography variant="body1">
-              Feels like {kelvinToCelsius(cityWeather.feels_like)} °C
-            </Typography>
-            <Fab size="medium" color="secondary" aria-label="add" onClick={() => addToMyObservation(cityWeather)}>
+          <WeatherCard cityWeather={cityWeather} />
+          <Fab
+            size="medium"
+            color="secondary"
+            aria-label="add"
+            onClick={() => addToMyObservation(cityWeather)}
+          >
             <AddIcon />
-            </Fab>
-          </CardContent>
+          </Fab>
         </Card>
       ) : (
         <Typography
@@ -108,31 +103,19 @@ function SearchBar({ placeHolder }: SearchBarProps) {
 
       <div className="myWeatherCardsList">
         <div style={{ marginBottom: 16 }}>
-        <Typography color="textSecondary" style={{ fontWeight: 'bold' }}>
+          <Typography color="textSecondary" style={{ fontWeight: "bold" }}>
             My observatory:
-        </Typography>        
-        {myWeatherList.map((cityWeather, index) => (
-        <Card variant="outlined" style={{ marginBottom: 16 }}>
-          <CardContent>
-            <Typography variant="body1">
-              {cityWeather.city}
-            </Typography>
-            <Typography color="textSecondary">
-              {cityWeather.main} / {cityWeather.description}
-            </Typography>
-            <Typography color="textSecondary">
-              Humidity: {cityWeather.humidity} %
-            </Typography>
-            <Typography variant="body1">
-              {kelvinToCelsius(cityWeather.temp)} °C
-            </Typography>
-            <Typography variant="body1">
-              Feels like {kelvinToCelsius(cityWeather.feels_like)} °C
-            </Typography>
-          </CardContent>
-          </Card>
-        ))}
-      </div>
+          </Typography>
+          {myWeatherList.map((cityWeather, _) => (
+            <Card
+              variant="outlined"
+              style={{ marginBottom: 16 }}
+              key={cityWeather.id}
+            >
+              <WeatherCard cityWeather={cityWeather} key={cityWeather.id} />
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

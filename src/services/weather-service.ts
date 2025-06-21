@@ -1,11 +1,11 @@
 import { getWeather as weatherApi } from "../api/weather";
 
-interface Coordinates {
+type Coordinates = {
   lat: number;
   lon: number;
-}
+};
 
-export interface CityWeather {
+export type CityWeather = {
   id: number;
   main: string;
   description: string;
@@ -13,7 +13,7 @@ export interface CityWeather {
   temp: number;
   humidity: number;
   city: string;
-}
+};
 
 export async function getWeather(
   coordinates: Coordinates,
@@ -28,16 +28,16 @@ export async function getWeather(
 
     if (!response.ok) throw new Error("Error");
 
-    const { weather, main, name } = await response.json();
+    const { weather, main, name, id } = await response.json();
 
     const cityWeather: CityWeather = {
-      id: weather[0].id,
+      id,
       description: weather[0].description,
       main: weather[0].main,
       temp: main.temp,
       humidity: main.humidity,
       feels_like: main.feels_like,
-      city: name
+      city: name,
     };
 
     return cityWeather;
