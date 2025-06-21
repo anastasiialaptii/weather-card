@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { CityLocation, getLocation } from "../services/location-service";
 import { CityWeather, getWeather } from "../services/weather-service";
-import "./search-bar.css";
 import { WeatherCard } from "./weather-card";
 
 type SearchBarProps = {
@@ -23,15 +22,10 @@ function SearchBar({ placeHolder }: SearchBarProps) {
 
   const addToMyObservation = (observable: CityWeather) => {
     setMyWeatherList((weatherList) => {
-      console.log("Current list:", weatherList);
-      console.log("Trying to add:", observable);
-
       if (weatherList.find((item) => item.id === observable.id)) {
-        console.log("Duplicate found, not adding.");
         return weatherList;
       }
 
-      console.log("Adding new item.");
       return [...weatherList, observable];
     });
   };
