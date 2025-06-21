@@ -1,4 +1,4 @@
-# Weather card app
+# Weather Observation App
 
 # Getting Started with Create React App
 
