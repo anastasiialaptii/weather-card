@@ -10,14 +10,15 @@ type WeatherCardProps = {
 export function WeatherCard({ cityWeather }: WeatherCardProps) {
   return (
     <CardContent
-    style={{
-    backgroundColor:
-      cityWeather.humidity > 80
-        ? '#f5380f'
-        : cityWeather.humidity > 55
-        ? '#e9f81f'
-        : '#5fdeac', 
-  }}>
+      style={{
+        backgroundColor:
+          cityWeather.humidity > 80
+            ? "#f5380f"
+            : cityWeather.humidity > 55
+              ? "#e9f81f"
+              : "#5fdeac",
+      }}
+    >
       <Typography variant="body1">{cityWeather.city}</Typography>
       <Typography color="textSecondary">
         {cityWeather.main} / {cityWeather.description}

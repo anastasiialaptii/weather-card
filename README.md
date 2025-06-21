@@ -1,4 +1,5 @@
 # Weather Observation App
+
 ![image](https://github.com/user-attachments/assets/1c6d4393-be85-4c5d-87c0-8336e8002877)
 
 ## Available Scripts
@@ -14,6 +15,7 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ### API keys
+
 Don't forget to your API keys!\
 You may use https://openweathermap.org/ for fetching weather data and https://rapidapi.com/hub for locating a land.
 
