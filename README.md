@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 
 ### API keys
 
-Don't forget to add your API keys!\
+Don't forget to add your own API keys!\
 You may use https://openweathermap.org/ for fetching weather data and https://rapidapi.com/hub for locating a land.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
